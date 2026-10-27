@@ -1,4 +1,18 @@
-/* Academic homepage v2. Local system fonts only; no external font downloads. */
+/* Academic homepage. Latin: Times New Roman; Chinese: Kai-style type.
+ * The local alias is restricted to CJK characters, leaving Latin letters and
+ * digits to Times New Roman. No font binaries are included in this project.
+ * typography.js loads an optional WenKai web fallback only when Kai is absent.
+ */
+@font-face {
+  font-family: "Homepage Kai";
+  src: local("Kaiti SC"), local("KaitiSC-Regular"), local("STKaiti"),
+       local("KaiTi"), local("KaiTi_GB2312"), local("楷体"),
+       local("AR PL KaitiM GB");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  unicode-range: U+2E80-9FFF, U+F900-FAFF, U+FE30-FE4F, U+FF00-FFEF, U+20000-2FA1F;
+}
 :root {
   color-scheme: light;
   --ink: #282c34;
@@ -7,11 +21,11 @@
   --accent: #802f3e;
   --link: #285a83;
   --page-width: 1104px;
-  --body-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "Noto Sans CJK SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  --body-font: "Homepage Kai", "Times New Roman", Times, "Liberation Serif", "LXGW WenKai", "Kaiti SC", "STKaiti", "KaiTi", "KaiTi_GB2312", "楷体", "AR PL KaitiM GB", serif;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 102px; }
-body { margin: 0; background: #fff; color: var(--ink); font: 15.5px/1.8 var(--body-font); -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #fff; color: var(--ink); font: 17px/1.85 var(--body-font); -webkit-font-smoothing: antialiased; }
 body, button, a { -webkit-tap-highlight-color: transparent; }
 a { color: var(--link); text-decoration: none; text-underline-offset: 4px; }
 a:hover { text-decoration: underline; }
@@ -82,13 +96,13 @@ html[lang="en"] .about-copy { line-height: 1.8; }
 .opportunity a { display: inline-flex; align-items: center; justify-content: center; width: 27px; min-height: 29px; flex: 0 0 auto; color: var(--accent); }
 .opportunity .icon { width: 15px; height: 15px; }
 
-/* Bibliographic entries. Titles, all authors and status are visible by default. */
+/* Bibliographic entries. One shared layout for all papers. */
 .publications-section { margin-bottom: 43px; }
 .publications-section > .section-heading { margin-bottom: 25px; }
 .publication { display: grid; grid-template-columns: 70px minmax(0,1fr); gap: 22px; padding: 0 0 24px; margin-bottom: 24px; border-bottom: 1px solid #eceef0; scroll-margin-top: 105px; }
 .publication:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
 .pub-index { padding-top: 3px; }
-.pub-year { display: block; color: #777b84; font: 24px/1.15 Georgia, "Times New Roman", serif; letter-spacing: -.2px; }
+.pub-year { display: block; color: #777b84; font: 24px/1.15 var(--body-font); letter-spacing: -.2px; }
 .pub-short-venue { display: block; font-size: 10px; font-weight: 650; letter-spacing: 1px; margin-top: 7px; color: #7a8088; }
 .pub-title { font-size: 17px; line-height: 1.55; font-weight: 650; color: var(--link); letter-spacing: -.1px; overflow-wrap: break-word; }
 .pub-authors { font-size: 12.6px; line-height: 1.9; color: #6a6f77; margin-top: 8px; }
@@ -264,3 +278,134 @@ html[lang="en"] .about-copy { line-height: 1.8; }
   .opportunity { background: transparent; }
   a { color: inherit; }
 }
+
+/* Publication update: native PDF downloads and code links beside the full title. */
+.pub-resource-links {
+  display: inline-flex;
+  flex-wrap: nowrap;
+  gap: .46em;
+  margin-inline-start: .36em;
+  white-space: nowrap;
+  vertical-align: baseline;
+  font-size: .79em;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.pub-resource-links a {
+  display: inline-block;
+  color: var(--link);
+  text-decoration: none;
+  padding-block: 2px;
+}
+.pub-resource-links a:hover { text-decoration: underline; }
+.pub-role { color: #7a8088; }
+.pub-author-prefix { color: #7a8088; font-weight: 400; }
+@media (max-width: 540px) {
+  .pub-resource-links { font-size: .83em; gap: .6em; }
+}
+
+
+/* Unified serif / Kai typography and full conference names. */
+.publication { display: block; }
+.pub-conference {
+  margin: 0 0 7px;
+  color: #7b6971;
+  font-size: 14.5px;
+  line-height: 1.55;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  overflow-wrap: break-word;
+}
+.pub-body { min-width: 0; }
+.pub-title { font-size: 19px; line-height: 1.5; font-weight: 700; letter-spacing: 0; }
+.pub-authors { font-size: 14.5px; line-height: 1.75; }
+.pub-venue { font-size: 14px; line-height: 1.7; }
+.pub-summary { font-size: 16px; line-height: 1.85; }
+.pub-resource-links { font-size: .83em; }
+.entry-body h3 { font-size: 17px; }
+.entry-body p { font-size: 15.5px; }
+.entry-body p.entry-detail { font-size: 14px; }
+.entry-date { font-size: 13.5px; }
+.profile-role { font-size: 14px; }
+.profile-institution { font-size: 15.5px; }
+.profile-lab { font-size: 13.5px; }
+.profile-links a { font-size: 14px; }
+.link-extra { font-size: 13px; }
+.sidebar-interests h2 { font-size: 14px; }
+.sidebar-interests li { font-size: 14px; }
+.opportunity { font-size: 14.5px; }
+.honors-list, .contact-section > p, .contact-line { font-size: 16px; }
+.nav-link { font-size: 15px; }
+.language-link { font-size: 14px; }
+
+/* Keep the certificate at the right of the patent title, not among authors. */
+.patent-title-row { display: flex; align-items: baseline; gap: 8px 20px; }
+.patent-title-row h3 { flex: 1; min-width: 0; font-size: 17px; line-height: 1.75; font-weight: 600; }
+.patent-certificate-link { flex: 0 0 auto; margin-left: auto; white-space: nowrap; font-size: 15px; line-height: 1.75; padding-block: 3px; }
+.patent-number { font-size: 13px; }
+.translation-note { font-size: 12.5px; }
+.original-patent { font-size: 14px; }
+
+@media (max-width: 1100px) and (min-width: 841px) {
+  .header-inner { gap: 20px; }
+  .site-nav { gap: 20px; }
+  .language-switch { padding-left: 15px; }
+  .profile-links a { font-size: 13px; }
+  .dated-entry { grid-template-columns: 150px minmax(0,1fr); }
+  .entry-date { font-size: 12.5px; }
+}
+@media (max-width: 840px) {
+  body { font-size: 16px; }
+  .pub-title { font-size: 18px; }
+  .pub-summary { font-size: 15.5px; line-height: 1.85; }
+  .pub-authors { font-size: 14px; }
+  .pub-conference { font-size: 13.5px; }
+  .pub-venue { font-size: 13.5px; }
+  .nav-link { font-size: 14px; }
+  .profile-role { font-size: 13px; }
+  .profile-institution { font-size: 14px; }
+  .profile-links a { font-size: 13.5px; }
+  .entry-date { font-size: 13px; }
+  .entry-body h3 { font-size: 16px; }
+  .entry-body p { font-size: 15px; }
+  .opportunity { font-size: 13.5px; }
+  .honors-list, .contact-section > p, .contact-line { font-size: 15px; }
+  .patent-title-row h3 { font-size: 16px; }
+  .patent-certificate-link { font-size: 14px; }
+}
+@media (max-width: 540px) {
+  .patent-title-row { flex-wrap: wrap; gap: 4px 14px; }
+  .patent-title-row h3 { flex-basis: 100%; }
+  .patent-certificate-link { margin-left: auto; }
+  .pub-conference { margin-bottom: 6px; }
+}
+@media (max-width: 360px) {
+  .site-nav { gap: 21px; }
+  .nav-link { font-size: 13px; }
+  .profile-role { font-size: 12px; }
+  .profile-institution { font-size: 13px; }
+  .profile-links a { font-size: 13px; }
+  .link-extra { font-size: 12px; }
+  .pub-title { font-size: 17px; }
+}
+@media print {
+  .publication { display: block; }
+  .pub-conference { font-size: 9pt; }
+  .pub-title { font-size: 11pt; }
+  .pub-authors, .pub-venue { font-size: 9pt; }
+  .pub-summary { font-size: 10pt; }
+}
+
+/* Software copyright entries share the patent typography and certificate links. */
+.software-copyright-entry + .software-copyright-entry { margin-top: 24px; }
+.software-copyright-entry .software-version { white-space: nowrap; }
+.software-copyright-entry .copyright-detail { color: #737a83; font-size: 14px; line-height: 1.85; }
+.software-copyright-entry .copyright-owner { margin-top: 7px; }
+.software-copyright-entry .copyright-meta { display: flex; flex-wrap: wrap; column-gap: 18px; row-gap: 0; margin-top: 2px; }
+.software-copyright-entry .copyright-meta > span { max-width: 100%; }
+@media (max-width: 540px) {
+  .software-copyright-entry .copyright-meta { display: block; }
+  .software-copyright-entry .copyright-meta > span { display: block; }
+}
+.copyright-author .venue-separator { margin-inline: 6px; }
