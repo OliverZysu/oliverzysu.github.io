@@ -62,6 +62,7 @@
     document.documentElement.style.scrollBehavior = previous;
   }
   function updateActiveSection() {
+    document.documentElement.style.setProperty("--header-offset", `${Math.ceil(headerHeight()) + 20}px`);
     const links = [...document.querySelectorAll(".nav-link[data-section]")];
     let active = "about";
     const threshold = headerHeight() + 75;
